@@ -3,6 +3,7 @@
 
 # Custom for Visual Studio
 *.cs     diff=csharp
+*.pyproj diff=csharpproject
 
 # Standard to msysgit
 *.doc	 diff=astextplain
@@ -15,3 +16,7 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# Custom for this repository
+*.json     diff=jsonfile
+*.pyc      diff=python running code
