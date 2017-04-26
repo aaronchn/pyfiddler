@@ -4,7 +4,7 @@ import clr
 import sys
 import win32api
 import win32con
-import datetime 
+import datetime
 from certificate import *
 
 sys.path.append("C:\\api")
@@ -32,35 +32,37 @@ def printSession(s):
     if s.RequestMethod == "CONNECT":
         return
         
-    #captureDomain = ("google","github")
-    #for i in captureDomain:
-        #if i  not in s.hostname.lower():
-            #return
+    # Filter for host
+    host_obmit = "123.123.123.123"
+    host = s.hostname.lower()
+    if host_obmit not in host:
+        return
     
-    url = s.fullUrl.lower() 
+    # Filter for path
+    url = s.url.lower()
+    respCode = s.responseCode
+    if '/path' not in url:
+        return
+    
+    datetime_now = datetime.datetime.now().strftime('%a, %Y %b %d %H:%M:%S')
+    datetime_now_utc = datetime.datetime.utcnow().strftime('%a, %d %b %Y %H:%M:%S GMT')    
+    
     reqHeaders = s.oRequest.headers.ToString()
     reqBody = s.GetRequestBodyAsString()
     respHeaders = s.oResponse.headers.ToString()
-
-    #"image/","text/css","text/javascript","application/x-javascript","application/json"
-    mime = ("image/","text/css")      
-    for i in mime:
-        if i in respHeaders :
-            print "Hide this ignore resource"
-            return
-
-    #if "Coolie" in reqHeaders:
-    #    cookie = s.oRequest.headers["Cookie"]
-    #    
-       
-    print '======>>' 
-    print "Traffic time:" + utcTime + '\n'
     
+    print '--->' 
+    print datetime_now
     print reqHeaders
-    if reqBody: print "Request body:" + reqBody 
     
-    print '<-------'
-    print respHeaders
+    # deal with cookie
+    if s.oRequest.headers.Exists("cookie"):
+        cookie = s.oRequest.headers.AllValues("cookie")
+        print "Request cookie are:",cookie
+
+    #if reqBody: print "!! Request body:\n",reqBody 
+    print '<---'
+    print respCode
 
 def fiddler(FC,flags):   
     # register event handler
@@ -83,9 +85,7 @@ def fiddler(FC,flags):
 if __name__ == '__main__':
    
     win32api.SetConsoleCtrlHandler(onClose, 1)
-    utcTime = datetime.datetime.utcnow().strftime('%a, %d %b %Y %H:%M:%S GMT')
-    
-    captureType = "https"
+    captureType = "http"
     
     #RegisterAsSystemProxy:1
     #OptimizeThreadPool:512
@@ -99,7 +99,7 @@ if __name__ == '__main__':
     else:
         fiddler(FC, 1+512+32)    
     try:
-        # keep console window opening        
+        # keep console window be open        
         raw_input()
     except:
         pass

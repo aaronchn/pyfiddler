@@ -1,11 +1,12 @@
 # coding:utf-8
-# use Bouncy Castle certificate generator both needs CertMaker.dll and BCMakeCert.dll 
-# 
-import json
+# To use Bouncy Castle certificate generator both needs CertMaker.dll and BCMakeCert.dll 
+
+import pickle
+
 def prepareCert(FC):
     try: 
-        with open('certGenerator.json', 'r') as f:
-            certificate = json.load(f)
+        with open('cert', 'rb') as handle:
+            certificate = pickle.load(handle)            
             if certificate:
                 FC.FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.bc.key", certificate['key'])
                 FC.FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.bc.cert", certificate['cert'])
@@ -21,8 +22,8 @@ def prepareCert(FC):
         cert = FC.FiddlerApplication.Prefs.GetStringPref("fiddler.certmaker.bc.cert", None)
         key = FC.FiddlerApplication.Prefs.GetStringPref("fiddler.certmaker.bc.key", None)
         certificate = {'key':key,'cert':cert}
-        with open('certGenerator.json', 'w') as f:
-            json.dump(certificate, f)
-                   
+        with open('cert', 'wb') as handle:
+            pickle.dump(certificate, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                
     else:
         print "\n!! Root Certificate Exists **"
