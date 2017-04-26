@@ -11,7 +11,7 @@ def prepareCert(FC):
                 FC.FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.bc.key", certificate['key'])
                 FC.FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.bc.cert", certificate['cert'])
     except IOError as err:
-        print("\n!! File Error:"+str(err))
+        print"\n!! File Error:"+str(err)
     
     # when json file above load and call SetStringPref() method
     # FC.CertMaker.rootCertExists() will be True
