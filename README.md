@@ -18,5 +18,6 @@ FiddlerCore 4.6.20171.13571</br>
 Win7 32bit and xp sp3 with .net 4 </br>
 
 - Thanks:</br>
-http://www.telerik.com/blogs/understanding-fiddler-certificate-generators </br>
-https://weblog.west-wind.com/posts/2014/jul/29/using-fiddlercore-to-capture-http-requests-with-net#CertificateInstallationwithFiddlerCore
+[Rick Strahl](https://weblog.west-wind.com/posts/2014/jul/29/using-fiddlercore-to-capture-http-requests-with-net)</br>
+[Eric Lawrence](http://www.telerik.com/blogs/understanding-fiddler-certificate-generators)
+
