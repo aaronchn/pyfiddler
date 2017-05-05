@@ -40,7 +40,6 @@ def printSession(s):
     
     # Filter for path
     url = s.url.lower()
-    respCode = s.responseCode
     if '/path' not in url:
         return
     
@@ -49,6 +48,7 @@ def printSession(s):
     
     reqHeaders = s.oRequest.headers.ToString()
     reqBody = s.GetRequestBodyAsString()
+    respCode = s.responseCode
     respHeaders = s.oResponse.headers.ToString()
     
     print '--->' 
