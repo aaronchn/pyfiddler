@@ -4,7 +4,7 @@ import clr
 import sys
 import win32api
 import win32con
-import datetime
+from datetime import datetime
 from certificate import *
 
 sys.path.append("C:\\api")
@@ -43,8 +43,8 @@ def printSession(s):
     if '/path' not in url:
         return
     
-    datetime_now = datetime.datetime.now().strftime('%a, %Y %b %d %H:%M:%S')
-    datetime_now_utc = datetime.datetime.utcnow().strftime('%a, %d %b %Y %H:%M:%S GMT')    
+    datetime_now = datetime.now().strftime('%a, %Y %b %d %H:%M:%S')
+    datetime_now_utc = datetime.utcnow().strftime('%a, %d %b %Y %H:%M:%S GMT')    
     
     reqHeaders = s.oRequest.headers.ToString()
     reqBody = s.GetRequestBodyAsString()
